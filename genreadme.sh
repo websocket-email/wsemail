@@ -4,7 +4,7 @@ set -e
 set -u
 
 cat <<EOF > README.md
-# websocketemail-go
+# wsemail
 
 This repository is the official cli client for [websocket.email](https://websocket.email).
 This code lets you subscribe to email addresses at the websocket.email domain from the from go code.
