@@ -1,2 +1,42 @@
-# wsemail
-Command line client for websocket.email
+# websocketemail-go
+
+This repository is the official cli client for [websocket.email](https://websocket.email).
+This code lets you subscribe to email addresses at the websocket.email domain from the from go code.
+
+### Installing and using
+
+To build and install the development command line client into $GOPATH/bin run:
+
+```
+go get github.com/websocket-email/wsemail
+```
+
+To get a prebuilt version of the cli client download one from the [releases page](https://github.com/websocket-email/wsemail/releases).
+
+## usage
+```
+A tool for interacting with https://websocket.email
+
+Usage of wsemail:
+  -api-token string
+    	API token to authenticate with, can also be specified with the env variable WEBSOCKETEMAIL_TOKEN
+  -for-address string
+    	Subscribe to emails from this address
+  -generate-address
+    	Generate a random fake email, print to stdout and exit
+  -n int
+    	Wait for and print this many emails before exiting, less than or equal to zero waits forever (default 1)
+  -timeout uint
+    	Wait this many seconds for an email to arrive before giving up and terminating with an error, 0 for no timeout (default 60)
+
+Examples:
+
+  Generate a secure random email address:
+
+    $ wsemail -generate-address
+
+  Wait 10 seconds for a single email for john@websocket.email:
+
+    $ wsemail -for-address john@websocket.email -timeout 10
+```
+
