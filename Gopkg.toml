@@ -1,0 +1,4 @@
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/websocket-email/websocketemail-go"
