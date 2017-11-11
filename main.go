@@ -10,7 +10,7 @@ import (
 	"github.com/websocket-email/websocketemail-go"
 )
 
-// Set via go flags.
+// Set via go build flags.
 var VersionString string
 
 var (
