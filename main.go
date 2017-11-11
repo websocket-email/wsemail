@@ -10,10 +10,14 @@ import (
 	"github.com/websocket-email/websocketemail-go"
 )
 
+// Set via go flags.
+var VersionString string
+
 var (
+	version         = flag.Bool("version", false, "print the version then to stdout and exit")
 	generateAddress = flag.Bool("generate-address", false, "Generate a random fake email, print to stdout and exit")
 	apiToken        = flag.String("api-token", "", "API token to authenticate with, can also be specified with the env variable WEBSOCKETEMAIL_TOKEN")
-	fromAddress     = flag.String("for-address", "", "Subscribe to emails from this address")
+	fromAddress     = flag.String("for-address", "", "Subscribe to emails arriving at this email address")
 	numEmails       = flag.Int64("n", 1, "Wait for and print this many emails before exiting, less than or equal to zero waits forever")
 	timeoutSeconds  = flag.Uint64("timeout", 60, "Wait this many seconds for an email to arrive before giving up and terminating with an error, 0 for no timeout")
 )
@@ -43,18 +47,25 @@ func main() {
 
 	flag.Parse()
 
+	if *version {
+		_, err := fmt.Println(VersionString)
+		if err != nil {
+			os.Exit(1)
+		}
+		return
+	}
+
 	if *generateAddress {
 		addr := websocketemail.MustGenerateEmailAddress()
 		_, err := fmt.Println(addr)
 		if err != nil {
-			_, _ = fmt.Fprintf(os.Stderr, "error writing output: %s\n", err)
 			os.Exit(1)
 		}
 		return
 	}
 
 	if *fromAddress == "" {
-		_, _ = fmt.Fprintln(os.Stderr, "-from-address or -generate-address required, see -help for details")
+		_, _ = fmt.Fprintln(os.Stderr, "-for-address or -generate-address required, see -help for details")
 		os.Exit(1)
 	}
 

@@ -21,13 +21,15 @@ Usage of wsemail:
   -api-token string
     	API token to authenticate with, can also be specified with the env variable WEBSOCKETEMAIL_TOKEN
   -for-address string
-    	Subscribe to emails from this address
+    	Subscribe to emails arriving at this email address
   -generate-address
     	Generate a random fake email, print to stdout and exit
   -n int
     	Wait for and print this many emails before exiting, less than or equal to zero waits forever (default 1)
   -timeout uint
     	Wait this many seconds for an email to arrive before giving up and terminating with an error, 0 for no timeout (default 60)
+  -version
+    	print the version then to stdout and exit
 
 Examples:
 
