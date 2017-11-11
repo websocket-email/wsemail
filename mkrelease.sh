@@ -10,20 +10,18 @@ do
 	for arch in amd64
 	do
 		build=wsemail-$version-$os-$arch
-		builddir=./release/$build
-		mkdir -p $builddir
+		mkdir -p ./release/$build
 		export GOOS=$os
 		export GOARCH=$arch
 		export CGO_ENABLED=0
-		go build -ldflags "-X main.VersionString=$version" -a -o $builddir/wsemail
-		cd release
+		go build -ldflags "-X main.VersionString=$version" -a -o ./release/$build/wsemail
+		cd ./release/
 		tar czf $build.tar.gz $build
 		zip -q -r $build.zip $build
 		cd ..
-		rm -rf $builddir
+		rm -rf ./release/$build
 	done
 done
-
 
 cd release
 sha256sum *.tar.gz *.zip > SHA256
