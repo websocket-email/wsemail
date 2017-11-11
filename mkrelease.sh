@@ -3,7 +3,7 @@
 set -e
 set -u
 
-version=`git describe --always --dirty`
+version=`git describe --tags --always --dirty`
 
 for os in linux darwin freebsd openbsd windows 
 do
