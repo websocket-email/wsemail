@@ -82,7 +82,12 @@ func main() {
 		_, _ = fmt.Fprintf(os.Stderr, "error subscribing to email: %s\n", err)
 		os.Exit(1)
 	}
-	defer cleanup()
+
+	die := func(code int, msg string, args ...interface{}) {
+		cleanup()
+		_, _ = fmt.Fprintf(os.Stderr, msg, args...)
+		os.Exit(code)
+	}
 
 	for {
 		timer := time.NewTimer(time.Duration(*timeoutSeconds) * time.Second)
@@ -93,22 +98,18 @@ func main() {
 		select {
 		case email, ok := <-ch:
 			if !ok {
-				_, _ = fmt.Fprintf(os.Stderr, "an error occured while waiting for email\n")
-				os.Exit(1)
+				die(1, "an error occured while waiting for email\n")
 			}
 			buf, err := json.Marshal(&email)
 			if err != nil {
-				_, _ = fmt.Fprintf(os.Stderr, "error marshalling output: %s\n", err)
-				os.Exit(1)
+				die(1, "error marshalling output: %s\n", err)
 			}
 			_, err = fmt.Println(string(buf))
 			if err != nil {
-				_, _ = fmt.Fprintf(os.Stderr, "error writing output: %s\n", err)
-				os.Exit(1)
+				die(1, "error writing output: %s\n", err)
 			}
 		case <-timeoutChan:
-			_, _ = fmt.Fprintln(os.Stderr, "no emails arrived before timeout")
-			os.Exit(2)
+			die(2, "no emails arrived before timeout\n")
 		}
 		timer.Stop()
 
@@ -117,4 +118,6 @@ func main() {
 			break
 		}
 	}
+
+	cleanup()
 }

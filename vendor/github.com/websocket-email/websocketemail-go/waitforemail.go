@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 
 	"github.com/gorilla/websocket"
 )
@@ -78,6 +79,7 @@ func WaitForEmail(tok, forAddress string) (<-chan ParsedEmail, func(), error) {
 	}()
 
 	cleanup := func() {
+		_ = c.WriteControl(websocket.CloseMessage, websocket.FormatCloseMessage(websocket.CloseNormalClosure, ""), time.Time{})
 		_ = c.Close()
 		close(done)
 	}
