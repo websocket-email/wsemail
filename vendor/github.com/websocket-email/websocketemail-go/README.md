@@ -1,9 +1,34 @@
 # websocketemail-go
 
-This repository is the official go library for [websocket.email](https://websocket.email).
-This code lets you subscribe to email addresses at the websocket.email domain from the from go code.
+This repository is the official go library for [websocket.email](https://websocket.email), 
+a tool that makes testing email based workflows easy. This code lets you subscribe to email addresses at the websocket.email domain from go code, and then do actions when they arrive.
 
-### Installing and using
+Some API calls require an API token, which can be aquired for free from the website.
+
+## Example
+
+```
+apiToken := "YOU_API_TOKEN"
+forAddress := MustGenerateEmailAddress()
+
+ch, cleanup, err := WaitForEmail(apiToken, forAddress)
+if err != nil {
+    panic(err)
+}
+defer cleanup()
+
+select {
+case email, ok := <-ch:
+    if !ok {
+        panic("unable to wait for email!")
+    }
+    fmt.Printf("Got email: %#v", email)
+case <-time.After(20 * time.Second):
+    panic("email was not recieved after 20 seconds!")
+}
+```
+
+## Installing and using
 
 To use the go library, follow the example provided here [this file](https://github.com/websocket-email/wsemail)
 

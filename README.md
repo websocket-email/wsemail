@@ -1,7 +1,10 @@
 # wsemail
 
 This repository is the official cli client for [websocket.email](https://websocket.email).
-This code lets you subscribe to email addresses at the websocket.email domain from the from go code.
+This command lets you subscribe to email addresses at the websocket.email domain and perform actions
+when they arrive.
+
+The client requires an API token, which can be aquired for free from the website.
 
 ### Installing and using
 

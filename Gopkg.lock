@@ -8,10 +8,10 @@
   version = "v1.2.0"
 
 [[projects]]
-  branch = "master"
   name = "github.com/websocket-email/websocketemail-go"
   packages = ["."]
-  revision = "70c32a71c6466070916b58d7dae899c2af64cb09"
+  revision = "0ef24c35f002257602d5c2bc95b1b2da8f22074f"
+  version = "v1.0.0"
 
 [solve-meta]
   analyzer-name = "dep"
